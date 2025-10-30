@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.project.notanotherblog.dto.LoginDto;
 import com.project.notanotherblog.dto.RegisterDto;
 import com.project.notanotherblog.entity.Role;
 import com.project.notanotherblog.entity.User;
 import com.project.notanotherblog.repository.RoleRepository;
 import com.project.notanotherblog.repository.UserRepository;
+import com.project.notanotherblog.security.JwtTokenProvider;
 import com.project.notanotherblog.service.UserService;
+
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -21,6 +24,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private RoleRepository roleRepository;
+	
+	@Autowired
+	private JwtTokenProvider jwtTokenProvider;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -57,6 +63,18 @@ public class UserServiceImpl implements UserService{
 	        user.getRolesOfUser().add(role);
 
 	        return userRepository.save(user);
+	}
+
+	@Override
+	public String login(LoginDto loginDto) {
+		User user = userRepository.findByEmail(loginDto.getEmail())
+	            .orElseThrow(() -> new RuntimeException("Invalid Email or Password"));
+
+	    if(!passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
+	        throw new RuntimeException("Invalid Email or Password");
+	    }
+
+	    return jwtTokenProvider.generateToken(user.getEmail());
 	}
 	
 	
