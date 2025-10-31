@@ -1,0 +1,47 @@
+package com.project.notanotherblog.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.project.notanotherblog.entity.Post;
+import com.project.notanotherblog.repository.PostRepository;
+import com.project.notanotherblog.service.PostService;
+
+public class PostServiceImpl implements PostService{
+	
+	@Autowired
+	private PostRepository postRepository;
+
+	@Override
+	public Post createPost(Post post) {
+		return postRepository.save(post);
+	}
+
+	@Override
+	public List<Post> getAllPosts() {
+		return postRepository.findAll();
+	}
+
+	@Override
+	public Post getPostById(Long id) {
+		return postRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Post not found with id "+ id));
+	}
+
+	@Override
+	public Post updatePostById(Long id, Post updatedPost) {
+		Post existing = getPostById(id);
+		existing.setTitle(updatedPost.getTitle());
+		existing.setContent(updatedPost.getContent());
+		existing.setCategory(updatedPost.getCategory());
+		return postRepository.save(existing);
+	}
+
+	@Override
+	public void deletePost(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

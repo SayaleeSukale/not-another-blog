@@ -1,0 +1,5 @@
+package com.project.notanotherblog.dto;
+
+public class RegisterDto {
+
+}

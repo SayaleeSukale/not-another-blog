@@ -1,0 +1,5 @@
+package com.project.notanotherblog.service.impl;
+
+public interface UserService {
+	
+}

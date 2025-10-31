@@ -1,0 +1,5 @@
+package com.project.notanotherblog.config;
+
+public class WebConfig {
+
+}

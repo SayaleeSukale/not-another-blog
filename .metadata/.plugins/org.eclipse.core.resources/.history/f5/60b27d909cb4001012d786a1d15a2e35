@@ -1,0 +1,7 @@
+package com.project.notanotherblog.service.impl;
+
+import com.project.notanotherblog.entity.User;
+
+public interface UserService {
+	User saveUser(User user);
+}

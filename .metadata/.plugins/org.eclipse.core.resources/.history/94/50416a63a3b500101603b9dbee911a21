@@ -1,0 +1,43 @@
+package com.project.notanotherblog.service.impl;
+
+import java.util.List;
+
+import com.project.notanotherblog.entity.Post;
+import com.project.notanotherblog.service.PostService;
+
+public class PostServiceImpl implements PostService{
+	
+	@Autowired
+	private PostRepository postRepository;
+
+	@Override
+	public Post createPost(Post post) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Post> getAllPosts() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Post getPostById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Post updatePostById(Long id, Post post) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deletePost(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

@@ -1,0 +1,33 @@
+package com.project.notanotherblog.service;
+
+import java.util.Collections;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.project.notanotherblog.entity.Role;
+import com.project.notanotherblog.entity.User;
+import com.project.notanotherblog.repository.RoleRepository;
+import com.project.notanotherblog.repository.UserRepository;
+
+public class UserServiceImpl {
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private RoleRepository roleRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	public User saveUser(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		
+		Role role = roleRepository.findByName("ROLE_USER")
+				.orElse(new Role(null, "Role_User"));
+		
+		user.setRolesOfUser(Collections.singleton(role));
+		
+		return userRepository.save(user);
+	}
+}

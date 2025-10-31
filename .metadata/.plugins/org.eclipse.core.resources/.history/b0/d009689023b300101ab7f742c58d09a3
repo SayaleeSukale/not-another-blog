@@ -1,0 +1,5 @@
+package com.project.blogapp.config;
+
+public class SecurityConfig {
+
+}

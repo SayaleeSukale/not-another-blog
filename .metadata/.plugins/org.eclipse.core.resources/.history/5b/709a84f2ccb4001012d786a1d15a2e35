@@ -1,0 +1,5 @@
+package com.project.notanotherblog.security;
+
+public class JwtTokenProvider {
+
+}
