@@ -1,0 +1,32 @@
+package com.project.notanotherblog.security;
+
+import java.security.Key;
+import java.util.Date;
+
+import org.springframework.stereotype.Component;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+
+
+@Component
+public class JwtTokenProvider {
+	private static final String JWT_SECRET = "ThisIsASecureKeyForJwtTokenThatIsAtLeast32Bytes123";
+	private final long JWT_EXPIRATION_MS = 86400000;
+	
+	private Key key;
+	
+	public JwtTokenProvider() {
+		this.key = Keys.hmacShaKeyFor(JWT_SECRET.getBytes());
+	}
+	
+	public String generateToken(String email) {
+		return Jwts.builder()
+				.setSubject(email)
+				.setIssuedAt(new Date())
+				.setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION_MS))
+				.signWith(key, SignatureAlgorithm.HS256)
+				.compact();
+	}
+}
